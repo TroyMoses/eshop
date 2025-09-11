@@ -95,7 +95,7 @@ export function AnalyticsDashboard() {
       <div>
         <h1 className="text-3xl font-bold mb-2">Analytics Dashboard</h1>
         <p className="text-muted-foreground">
-          Monitor your store's performance and key metrics
+          Monitor your store&apos;s performance and key metrics
         </p>
       </div>
 

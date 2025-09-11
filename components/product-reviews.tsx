@@ -42,7 +42,7 @@ export function ProductReviews({ productId }: ProductReviewsProps) {
       } else {
         toast.error(result.message);
       }
-    } catch (error) {
+    } catch {
       toast.error("Something went wrong. Please try again.");
     } finally {
       setIsLoading(false);

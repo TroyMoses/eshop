@@ -196,8 +196,8 @@ export function SearchResults({ searchParams }: SearchResultsProps) {
               <Search className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
               <h3 className="text-xl font-semibold mb-2">No products found</h3>
               <p className="text-muted-foreground">
-                Try adjusting your search terms or filters to find what you're
-                looking for.
+                Try adjusting your search terms or filters to find what you&apos;re
+              looking for.
               </p>
             </div>
             <div className="space-y-2 text-sm text-muted-foreground">
