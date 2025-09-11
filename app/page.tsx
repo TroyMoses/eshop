@@ -12,7 +12,6 @@ import { TopBrands } from "@/components/top-brands";
 import { HomeEntertainmentDeals } from "@/components/home-entertainment-deals";
 import { CategoryGrid } from "@/components/category-grid";
 import { FeaturedProducts } from "@/components/featured-products";
-import { PromotionalBanners } from "@/components/promotional-banners";
 import { TestimonialsSection } from "@/components/testimonials-section";
 import { NewsletterSection } from "@/components/newsletter-section";
 import { Footer } from "@/components/footer";
