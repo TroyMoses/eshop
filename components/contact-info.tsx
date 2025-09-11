@@ -70,7 +70,7 @@ export function ContactInfo() {
         <CardContent className="p-6">
           <h3 className="font-semibold mb-4">Why Choose RULLING Gadget Hub?</h3>
           <ul className="space-y-2 text-sm text-muted-foreground">
-            <li>• Free shipping on orders over $50</li>
+            <li>• Free shipping on orders over Ugx 20,000</li>
             <li>• 30-day return policy</li>
             <li>• 24/7 customer support</li>
             <li>• Secure payment processing</li>

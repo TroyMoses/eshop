@@ -27,7 +27,7 @@ export function Header() {
         <div className="container mx-auto px-4 py-2">
           <div className="flex items-center justify-between text-sm">
             <p className="text-balance">
-              Free shipping on orders over $50 | New Year Sale - Up to 50% off!
+              Free shipping on orders over Ugx 20,000 | New Year Sale - Up to 50% off!
             </p>
             <div className="hidden md:flex items-center gap-4">
               <Link href="/contact" className="hover:underline cursor-pointer">
