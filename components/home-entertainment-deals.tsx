@@ -33,7 +33,7 @@ const entertainmentDeals = [
     name: "Tecno Spark 8C, 4GB ...",
     originalPrice: "650,000 UGX",
     salePrice: "471,700 UGX",
-    image: "/placeholder.svg?height=200&width=200",
+    image: "/tecno-spark-phone.jpg",
     badge: null,
   },
   {
@@ -41,7 +41,7 @@ const entertainmentDeals = [
     name: "Smart Watch BT For IOS...",
     originalPrice: "95,000 UGX",
     salePrice: "80,500 UGX",
-    image: "/placeholder.svg?height=200&width=200",
+    image: "/smartwatch-black.jpg",
     badge: null,
   },
   {
@@ -49,7 +49,7 @@ const entertainmentDeals = [
     name: "Hisens TV,Smart HDMI...",
     originalPrice: "650,000 UGX",
     salePrice: "571,700 UGX",
-    image: "/placeholder.svg?height=200&width=200",
+    image: "/smart-tv.jpg",
     badge: "1 Year W",
   },
   {
@@ -57,7 +57,7 @@ const entertainmentDeals = [
     name: "Electro Master Kettle 2L...",
     originalPrice: "80,000 UGX",
     salePrice: "72,700 UGX",
-    image: "/placeholder.svg?height=200&width=200",
+    image: "/electric-kettle.jpg",
     badge: null,
   },
   {
@@ -65,7 +65,7 @@ const entertainmentDeals = [
     name: "Micro SD card Memory c...",
     originalPrice: "60,000 UGX",
     salePrice: "25,700 UGX",
-    image: "/placeholder.svg?height=200&width=200",
+    image: "/memory-card.jpg",
     badge: "HIFINIT",
   },
   {
@@ -73,7 +73,7 @@ const entertainmentDeals = [
     name: "DJack Speaker 3.0CH...",
     originalPrice: "450,000 UGX",
     salePrice: "165,200 UGX",
-    image: "/placeholder.svg?height=200&width=200",
+    image: "/speaker-system.jpg",
     badge: null,
   },
 ];
