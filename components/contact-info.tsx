@@ -20,7 +20,7 @@ export function ContactInfo() {
     {
       icon: Mail,
       title: "Email Us",
-      details: ["support@elitestore.com", "We reply within 24 hours"],
+      details: ["support@rulling.com", "We reply within 24 hours"],
     },
     {
       icon: Clock,
@@ -68,7 +68,7 @@ export function ContactInfo() {
 
       <Card>
         <CardContent className="p-6">
-          <h3 className="font-semibold mb-4">Why Choose EliteStore?</h3>
+          <h3 className="font-semibold mb-4">Why Choose RULLING Gadget Hub?</h3>
           <ul className="space-y-2 text-sm text-muted-foreground">
             <li>• Free shipping on orders over $50</li>
             <li>• 30-day return policy</li>

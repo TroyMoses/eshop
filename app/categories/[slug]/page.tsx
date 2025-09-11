@@ -120,7 +120,7 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${category.name} - EliteStore`,
+    title: `${category.name} - RULLING Gadget Hub`,
     description: category.description,
   };
 }

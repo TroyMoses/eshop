@@ -11,7 +11,7 @@ export function AboutHero() {
               Your Trusted Partner in Premium Shopping
             </h1>
             <p className="text-lg text-muted-foreground mb-8 text-pretty">
-              Since 2020, EliteStore has been committed to providing customers
+              Since 2020, RULLING Gadget Hub has been committed to providing customers
               with the highest quality products across multiple categories. We
               believe in excellence, innovation, and customer satisfaction above
               all else.
@@ -32,7 +32,7 @@ export function AboutHero() {
           <div className="relative h-96 lg:h-[500px]" data-aos="fade-left">
             <Image
               src="/modern-office-team.png"
-              alt="About EliteStore"
+              alt="About RULLING Gadget Hub"
               fill
               className="object-cover rounded-lg"
             />

@@ -5,6 +5,6 @@ export default function AdminPage() {
 }
 
 export const metadata = {
-  title: "Admin Dashboard - EliteStore",
+  title: "Admin Dashboard - RULLING Gadget Hub",
   description: "Manage your e-commerce store",
 };

@@ -19,6 +19,6 @@ export default function AboutPage() {
 }
 
 export const metadata = {
-  title: "About Us - EliteStore",
+  title: "About Us - RULLING Gadget Hub",
   description: "Learn more about our company and mission",
 };
