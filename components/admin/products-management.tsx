@@ -28,7 +28,6 @@ import { products } from "@/lib/dummy-data";
 
 export function ProductsManagement() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
   const [isAddingProduct, setIsAddingProduct] = useState(false);
 
   const filteredProducts = products.filter(

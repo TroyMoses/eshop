@@ -46,7 +46,7 @@ export async function createProduct(formData: FormData) {
     });
     revalidatePath("/admin/products");
     return { success: true, message: "Product created successfully" };
-  } catch (error) {
+  } catch {
     return { success: false, message: "Failed to create product" };
   }
 }
@@ -69,7 +69,7 @@ export async function updateProduct(id: string, formData: FormData) {
     });
     revalidatePath("/admin/products");
     return { success: true, message: "Product updated successfully" };
-  } catch (error) {
+  } catch {
     return { success: false, message: "Failed to update product" };
   }
 }
@@ -81,7 +81,7 @@ export async function deleteProduct(id: string) {
     });
     revalidatePath("/admin/products");
     return { success: true, message: "Product deleted successfully" };
-  } catch (error) {
+  } catch {
     return { success: false, message: "Failed to delete product" };
   }
 }
@@ -105,7 +105,7 @@ export async function createBanner(formData: FormData) {
     });
     revalidatePath("/admin/banners");
     return { success: true, message: "Banner created successfully" };
-  } catch (error) {
+  } catch {
     return { success: false, message: "Failed to create banner" };
   }
 }
@@ -128,7 +128,7 @@ export async function updateBanner(id: string, formData: FormData) {
     });
     revalidatePath("/admin/banners");
     return { success: true, message: "Banner updated successfully" };
-  } catch (error) {
+  } catch {
     return { success: false, message: "Failed to update banner" };
   }
 }
@@ -152,7 +152,7 @@ export async function submitContactForm(formData: FormData) {
       success: true,
       message: "Message sent successfully! We'll get back to you soon.",
     };
-  } catch (error) {
+  } catch {
     return {
       success: false,
       message: "Failed to send message. Please try again.",
@@ -173,7 +173,7 @@ export async function subscribeNewsletter(formData: FormData) {
       body: JSON.stringify(subscriptionData),
     });
     return { success: true, message: "Successfully subscribed to newsletter!" };
-  } catch (error) {
+  } catch {
     return {
       success: false,
       message: "Failed to subscribe. Please try again.",
@@ -199,7 +199,7 @@ export async function submitReview(formData: FormData) {
     });
     revalidatePath(`/products/${reviewData.productId}`);
     return { success: true, message: "Review submitted successfully!" };
-  } catch (error) {
+  } catch {
     return {
       success: false,
       message: "Failed to submit review. Please try again.",
@@ -227,7 +227,7 @@ export async function createPromotion(formData: FormData) {
     });
     revalidatePath("/admin/promotions");
     return { success: true, message: "Promotion created successfully" };
-  } catch (error) {
+  } catch {
     return { success: false, message: "Failed to create promotion" };
   }
 }
@@ -250,7 +250,7 @@ export async function createTestimonial(formData: FormData) {
     });
     revalidatePath("/admin/testimonials");
     return { success: true, message: "Testimonial created successfully" };
-  } catch (error) {
+  } catch {
     return { success: false, message: "Failed to create testimonial" };
   }
 }

@@ -13,7 +13,7 @@ export function DealsHero() {
             Amazing Deals & Promotions
           </h1>
           <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto text-pretty">
-            Don't miss out on our exclusive deals and promotions. Save big on
+            Don&apos;t miss out on our exclusive deals and promotions. Save big on
             premium products across all categories.
           </p>
           <Button size="lg" className="cursor-pointer">
