@@ -48,7 +48,7 @@ export function PromotionalBanners() {
                   </h3>
                   <p className="mb-4 text-pretty opacity-90">
                     Trending styles for every season - Free shipping on orders
-                    over $50
+                    over Ugx 20,000
                   </p>
                   <Button variant="secondary" className="w-fit cursor-pointer">
                     Shop Fashion

@@ -27,11 +27,11 @@ export function ProductFilters({ category }: ProductFiltersProps) {
   ].sort();
 
   const priceRanges = [
-    { label: "Under $50", value: "0-50" },
-    { label: "$50 - $100", value: "50-100" },
-    { label: "$100 - $500", value: "100-500" },
-    { label: "$500 - $1000", value: "500-1000" },
-    { label: "Over $1000", value: "1000-10000" },
+    { label: "Under Ugx 50", value: "0-50" },
+    { label: "Ugx 50 - Ugx 100", value: "50-100" },
+    { label: "Ugx 100 - Ugx 500", value: "100-500" },
+    { label: "Ugx 500 - Ugx 1000", value: "500-1000" },
+    { label: "Over Ugx 1000", value: "1000-10000" },
   ];
 
   const ratingOptions = [
@@ -93,7 +93,7 @@ export function ProductFilters({ category }: ProductFiltersProps) {
                   className="cursor-pointer"
                   onClick={() => updateFilter("price", "")}
                 >
-                  Price: ${searchParams.get("price")?.replace("-", " - $")}
+                  Price: Ugx {searchParams.get("price")?.replace("-", " - Ugx")}
                   <X className="h-3 w-3 ml-1" />
                 </Badge>
               )}

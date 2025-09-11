@@ -422,7 +422,7 @@ export const promotions: Promotion[] = [
   {
     id: "2",
     title: "Free Shipping Weekend",
-    description: "Free shipping on all orders above $50",
+    description: "Free shipping on all orders above Ugx 20,000",
     discountType: "fixed",
     discountValue: 0,
     startDate: "2024-01-26T00:00:00Z",

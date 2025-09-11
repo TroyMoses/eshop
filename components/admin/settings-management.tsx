@@ -157,7 +157,7 @@ export function SettingsManagement() {
               <Separator />
               <div>
                 <Label htmlFor="freeShippingThreshold">
-                  Free Shipping Threshold ($)
+                  Free Shipping Threshold (UGX)
                 </Label>
                 <Input
                   id="freeShippingThreshold"
