@@ -106,11 +106,11 @@ export function ProductDetails({ product }: ProductDetailsProps) {
         {/* Price */}
         <div className="flex items-center space-x-4">
           <span className="text-3xl font-bold text-primary">
-            ${product.price}
+            UGX {product.price}
           </span>
           {product.originalPrice && (
             <span className="text-xl text-muted-foreground line-through">
-              ${product.originalPrice}
+              Ugx{product.originalPrice}
             </span>
           )}
           {discountPercentage > 0 && (
@@ -204,7 +204,7 @@ export function ProductDetails({ product }: ProductDetailsProps) {
               <Truck className="h-6 w-6 mx-auto mb-2 text-primary" />
               <p className="text-sm font-medium">Free Shipping</p>
               <p className="text-xs text-muted-foreground">
-                On orders over $50
+                On orders over Ugx 20,000
               </p>
             </CardContent>
           </Card>
@@ -264,10 +264,10 @@ export function ProductDetails({ product }: ProductDetailsProps) {
               <CardContent className="p-4 space-y-2">
                 <p className="font-medium">Shipping Information</p>
                 <p className="text-sm text-muted-foreground">
-                  • Free standard shipping on orders over $50
+                  • Free standard shipping on orders over Ugx 20,000
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  • Express shipping available for $9.99
+                  • Express shipping available for Ugx 90,999
                 </p>
                 <p className="text-sm text-muted-foreground">
                   • Standard delivery: 3-5 business days
