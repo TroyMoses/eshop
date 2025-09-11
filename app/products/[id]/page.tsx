@@ -10,8 +10,9 @@ interface ProductPageProps {
   };
 }
 
-export default function ProductPage({ params }: ProductPageProps) {
-  const product = products.find((p) => p.id === params.id);
+export default async function ProductPage({ params }: ProductPageProps) {
+  const paramz = await params;
+  const product = products.find((p) => p.id === paramz.id);
 
   if (!product) {
     notFound();
@@ -39,7 +40,8 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: { params: { id: string } }) {
-  const product = products.find((p) => p.id === params.id);
+  const paramz = await params;
+  const product = products.find((p) => p.id === paramz.id);
 
   if (!product) {
     return {

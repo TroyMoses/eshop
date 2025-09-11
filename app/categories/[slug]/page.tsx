@@ -16,11 +16,13 @@ interface CategoryPageProps {
   };
 }
 
-export default function CategoryPage({
+export default async function CategoryPage({
   params,
   searchParams,
 }: CategoryPageProps) {
-  const category = categories.find((cat) => cat.slug === params.slug);
+  const paramz = await params;
+  const searchParamz = await searchParams;
+  const category = categories.find((cat) => cat.slug === paramz.slug);
 
   if (!category) {
     notFound();
@@ -32,29 +34,29 @@ export default function CategoryPage({
   );
 
   // Apply filters based on search params
-  if (searchParams.brand) {
+  if (searchParamz.brand) {
     categoryProducts = categoryProducts.filter(
-      (product) => product.brand === searchParams.brand
+      (product) => product.brand === searchParamz.brand
     );
   }
 
-  if (searchParams.rating) {
-    const minRating = Number.parseFloat(searchParams.rating);
+  if (searchParamz.rating) {
+    const minRating = Number.parseFloat(searchParamz.rating);
     categoryProducts = categoryProducts.filter(
       (product) => product.rating >= minRating
     );
   }
 
-  if (searchParams.price) {
-    const [min, max] = searchParams.price.split("-").map(Number);
+  if (searchParamz.price) {
+    const [min, max] = searchParamz.price.split("-").map(Number);
     categoryProducts = categoryProducts.filter(
       (product) => product.price >= min && product.price <= max
     );
   }
 
   // Apply sorting
-  if (searchParams.sort) {
-    switch (searchParams.sort) {
+  if (searchParamz.sort) {
+    switch (searchParamz.sort) {
       case "price-low":
         categoryProducts.sort((a, b) => a.price - b.price);
         break;
@@ -108,7 +110,8 @@ export async function generateMetadata({
 }: {
   params: { slug: string };
 }) {
-  const category = categories.find((cat) => cat.slug === params.slug);
+  const paramz = await params;
+  const category = categories.find((cat) => cat.slug === paramz.slug);
 
   if (!category) {
     return {
