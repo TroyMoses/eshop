@@ -50,7 +50,7 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
   }
 
   return {
-    title: `${product.name} - EliteStore`,
+    title: `${product.name} - RULLING Gadget Hub`,
     description: product.description,
   };
 }

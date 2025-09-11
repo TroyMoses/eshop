@@ -21,10 +21,10 @@ export function Footer() {
             <div className="flex items-center space-x-2 mb-4">
               <div className="h-8 w-8 bg-primary rounded-lg flex items-center justify-center">
                 <span className="text-primary-foreground font-bold text-lg">
-                  E
+                  R
                 </span>
               </div>
-              <span className="text-xl font-bold">EliteStore</span>
+              <span className="text-xl font-bold">RULLING Gadget Hub</span>
             </div>
             <p className="text-muted-foreground mb-4 text-pretty">
               Your trusted partner for premium products across electronics,
@@ -159,7 +159,7 @@ export function Footer() {
               <div className="flex items-center space-x-3">
                 <Mail className="h-4 w-4 text-muted-foreground" />
                 <span className="text-muted-foreground text-sm">
-                  support@elitestore.com
+                  support@rulling.com
                 </span>
               </div>
             </div>
@@ -170,7 +170,7 @@ export function Footer() {
 
         <div className="flex flex-col md:flex-row justify-between items-center">
           <p className="text-muted-foreground text-sm">
-            © 2024 EliteStore. All rights reserved.
+            © 2024 RULLING Gadget Hub. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <Link

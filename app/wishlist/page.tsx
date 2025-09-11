@@ -15,6 +15,6 @@ export default function Wishlist() {
 }
 
 export const metadata = {
-  title: "Wishlist - EliteStore",
+  title: "Wishlist - RULLING Gadget Hub",
   description: "Your saved products and favorites",
 };

@@ -23,6 +23,6 @@ export default function SearchPage({ searchParams }: SearchPageProps) {
 }
 
 export const metadata = {
-  title: "Search Results - EliteStore",
+  title: "Search Results - RULLING Gadget Hub",
   description: "Find the products you're looking for",
 };

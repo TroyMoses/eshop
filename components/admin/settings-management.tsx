@@ -60,14 +60,14 @@ export function SettingsManagement() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <Label htmlFor="storeName">Store Name</Label>
-                  <Input id="storeName" defaultValue="EliteStore" />
+                  <Input id="storeName" defaultValue="RULLING Gadget Hub" />
                 </div>
                 <div>
                   <Label htmlFor="storeEmail">Store Email</Label>
                   <Input
                     id="storeEmail"
                     type="email"
-                    defaultValue="support@elitestore.com"
+                    defaultValue="support@rulling.com"
                   />
                 </div>
               </div>
@@ -303,7 +303,7 @@ export function SettingsManagement() {
                 <Label htmlFor="metaTitle">Meta Title</Label>
                 <Input
                   id="metaTitle"
-                  defaultValue="EliteStore - Premium E-commerce Experience"
+                  defaultValue="RULLING Gadget Hub - Premium E-commerce Experience"
                 />
               </div>
               <div>

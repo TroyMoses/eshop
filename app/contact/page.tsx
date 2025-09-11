@@ -31,6 +31,6 @@ export default function ContactPage() {
 }
 
 export const metadata = {
-  title: "Contact Us - EliteStore",
+  title: "Contact Us - RULLING Gadget Hub",
   description: "Get in touch with our customer support team",
 };

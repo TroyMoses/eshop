@@ -17,6 +17,6 @@ export default function DealsPage() {
 }
 
 export const metadata = {
-  title: "Deals & Promotions - EliteStore",
+  title: "Deals & Promotions - RULLING Gadget Hub",
   description: "Discover amazing deals and promotions on premium products",
 };
