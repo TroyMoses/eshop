@@ -39,7 +39,6 @@ export default function HomePage() {
         <HomeEntertainmentDeals />
         <CategoryGrid />
         <FeaturedProducts />
-        <PromotionalBanners />
         <TestimonialsSection />
         <NewsletterSection />
       </main>
