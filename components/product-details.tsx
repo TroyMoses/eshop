@@ -204,7 +204,7 @@ export function ProductDetails({ product }: ProductDetailsProps) {
               <Truck className="h-6 w-6 mx-auto mb-2 text-primary" />
               <p className="text-sm font-medium">Free Shipping</p>
               <p className="text-xs text-muted-foreground">
-                On orders over Ugx 20,000
+                On orders over Ugx 200,000
               </p>
             </CardContent>
           </Card>
@@ -264,16 +264,16 @@ export function ProductDetails({ product }: ProductDetailsProps) {
               <CardContent className="p-4 space-y-2">
                 <p className="font-medium">Shipping Information</p>
                 <p className="text-sm text-muted-foreground">
-                  • Free standard shipping on orders over Ugx 20,000
+                  • Free standard shipping on orders over Ugx 200,000
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  • Express shipping available for Ugx 90,999
+                  • Express shipping available for Ugx 20,000
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  • Standard delivery: 3-5 business days
+                  • Standard delivery: 1-2 business days
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  • Express delivery: 1-2 business days
+                  • Express delivery: 1 business day or hours
                 </p>
               </CardContent>
             </Card>
