@@ -27,7 +27,8 @@ export function Header() {
         <div className="container mx-auto px-4 py-2">
           <div className="flex items-center justify-between text-sm">
             <p className="text-balance">
-              Free shipping on orders over Ugx 20,000 | New Year Sale - Up to 50% off!
+              Free shipping on orders over Ugx 20,000 | New Year Sale - Up to
+              50% off!
             </p>
             <div className="hidden md:flex items-center gap-4">
               <Link href="/contact" className="hover:underline cursor-pointer">
@@ -167,7 +168,7 @@ export function Header() {
                   <Menu className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-[300px] sm:w-[400px] p-4">
+              <SheetContent side="left" className="w-[300px] sm:w-[400px] p-4">
                 <SheetHeader>
                   <SheetTitle>Menu</SheetTitle>
                   <SheetDescription>
