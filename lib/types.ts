@@ -14,6 +14,10 @@ export interface Product {
   featured: boolean;
   tags: string[];
   specifications?: Record<string, string>;
+  variations?: ProductVariation[];
+  mainFeatures?: string[];
+  keyFeatures?: string[];
+  whatsInTheBox?: string[];
   createdAt: string;
   updatedAt: string;
 }
@@ -151,4 +155,13 @@ export interface Address {
   state: string;
   zipCode: string;
   country: string;
+}
+
+export interface ProductVariation {
+  id: string;
+  name: string;
+  price: number;
+  originalPrice?: number;
+  stock: number;
+  sku?: string;
 }

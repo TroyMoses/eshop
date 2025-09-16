@@ -2,19 +2,31 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import {
   Star,
   ShoppingCart,
   Heart,
-  Share2,
   Truck,
   Shield,
   RotateCcw,
+  Facebook,
+  Twitter,
+  MessageCircle,
+  Plus,
+  Minus,
+  X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import type { Product } from "@/lib/types";
 
 interface ProductDetailsProps {
@@ -24,12 +36,52 @@ interface ProductDetailsProps {
 export function ProductDetails({ product }: ProductDetailsProps) {
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
+  const [selectedVariation, setSelectedVariation] = useState("");
+  const [showVariationModal, setShowVariationModal] = useState(false);
+  const [variationQuantities, setVariationQuantities] = useState<
+    Record<string, number>
+  >({});
 
   const discountPercentage = product.originalPrice
     ? Math.round(
         ((product.originalPrice - product.price) / product.originalPrice) * 100
       )
     : 0;
+
+  const variations = product.variations || [];
+
+  const handleVariationQuantityChange = (
+    variationId: string,
+    change: number
+  ) => {
+    setVariationQuantities((prev) => ({
+      ...prev,
+      [variationId]: Math.max(0, (prev[variationId] || 0) + change),
+    }));
+  };
+
+  const handleAddToCart = () => {
+    if (variations.length > 0) {
+      setShowVariationModal(true);
+    } else {
+      // Add single product to cart
+      console.log("Adding to cart:", { product, quantity });
+    }
+  };
+
+  const handleVariationAddToCart = () => {
+    const selectedItems = Object.entries(variationQuantities).filter(
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      ([_, qty]) => qty > 0
+    );
+    console.log("Adding variations to cart:", selectedItems);
+    setShowVariationModal(false);
+  };
+
+  const totalVariationItems = Object.values(variationQuantities).reduce(
+    (sum, qty) => sum + qty,
+    0
+  );
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -44,9 +96,18 @@ export function ProductDetails({ product }: ProductDetailsProps) {
           />
           {product.originalPrice && (
             <Badge className="absolute top-4 left-4 bg-destructive text-destructive-foreground">
-              {discountPercentage}% OFF
+              -{discountPercentage}%
             </Badge>
           )}
+          <div className="absolute top-4 right-4">
+            <Button
+              variant="secondary"
+              size="icon"
+              className="cursor-pointer bg-white/80 hover:bg-white"
+            >
+              <Heart className="h-5 w-5" />
+            </Button>
+          </div>
         </div>
         <div className="flex space-x-2 overflow-x-auto">
           {product.images.map((image, index) => (
@@ -68,19 +129,92 @@ export function ProductDetails({ product }: ProductDetailsProps) {
             </button>
           ))}
         </div>
+
+        {/* Share Section */}
+        <div className="pt-4">
+          <h3 className="text-lg font-semibold mb-3">SHARE THIS PRODUCT</h3>
+          <div className="flex space-x-3">
+            <Button
+              variant="outline"
+              size="icon"
+              className="cursor-pointer rounded-full bg-transparent"
+            >
+              <Facebook className="h-4 w-4" />
+            </Button>
+            <Button
+              variant="outline"
+              size="icon"
+              className="cursor-pointer rounded-full bg-transparent"
+            >
+              <Twitter className="h-4 w-4" />
+            </Button>
+            <Button
+              variant="outline"
+              size="icon"
+              className="cursor-pointer rounded-full bg-transparent"
+            >
+              <MessageCircle className="h-4 w-4" />
+            </Button>
+          </div>
+        </div>
       </div>
 
       {/* Product Info */}
       <div className="space-y-6" data-aos="fade-left">
         <div>
-          <Badge variant="outline" className="mb-2">
-            {product.category}
-          </Badge>
-          <h1 className="text-3xl font-bold mb-2 text-balance">
+          <h1 className="text-2xl md:text-3xl font-bold mb-3 text-balance">
             {product.name}
           </h1>
-          <p className="text-muted-foreground text-pretty">
-            {product.description}
+          <div className="flex items-center space-x-4 mb-4">
+            <span className="text-sm text-muted-foreground">
+              Brand:{" "}
+              <Link
+                href={`/brands/${product.brand.toLowerCase()}`}
+                className="text-primary hover:underline"
+              >
+                {product.brand}
+              </Link>
+            </span>
+            <span className="text-primary text-sm hover:underline cursor-pointer">
+              Similar products from {product.brand}
+            </span>
+          </div>
+        </div>
+
+        {/* Price */}
+        <div className="space-y-2">
+          <div className="flex items-center space-x-4">
+            {variations.length > 0 ? (
+              <span className="text-2xl md:text-3xl font-bold text-primary">
+                UGX{" "}
+                {Math.min(...variations.map((v) => v.price)).toLocaleString()} -
+                UGX{" "}
+                {Math.max(...variations.map((v) => v.price)).toLocaleString()}
+              </span>
+            ) : (
+              <span className="text-2xl md:text-3xl font-bold text-primary">
+                UGX {product.price.toLocaleString()}
+              </span>
+            )}
+            {product.originalPrice && (
+              <span className="text-lg text-muted-foreground line-through">
+                UGX {product.originalPrice.toLocaleString()}
+              </span>
+            )}
+            {discountPercentage > 0 && (
+              <Badge variant="destructive" className="text-sm">
+                -{discountPercentage}%
+              </Badge>
+            )}
+          </div>
+          {variations.length > 0 && (
+            <p className="text-sm text-orange-600">
+              Some variations with low stock
+            </p>
+          )}
+          <p className="text-sm text-muted-foreground">
+            + shipping from <span className="font-medium">UGX 2,500</span> to
+            Central Business District
           </p>
         </div>
 
@@ -99,101 +233,95 @@ export function ProductDetails({ product }: ProductDetailsProps) {
             ))}
           </div>
           <span className="text-sm text-muted-foreground">
-            {product.rating} ({product.reviewCount} reviews)
+            {product.reviewCount > 0
+              ? `(${product.reviewCount} reviews)`
+              : "(No ratings available)"}
           </span>
         </div>
 
-        {/* Price */}
-        <div className="flex items-center space-x-4">
-          <span className="text-3xl font-bold text-primary">
-            UGX {product.price}
-          </span>
-          {product.originalPrice && (
-            <span className="text-xl text-muted-foreground line-through">
-              Ugx{product.originalPrice}
-            </span>
-          )}
-          {discountPercentage > 0 && (
-            <Badge variant="destructive" className="text-sm">
-              Save {discountPercentage}%
-            </Badge>
-          )}
-        </div>
-
-        {/* Stock Status */}
-        <div className="flex items-center space-x-2">
-          <Badge
-            variant={
-              product.stock > 10
-                ? "default"
-                : product.stock > 0
-                ? "secondary"
-                : "destructive"
-            }
-          >
-            {product.stock > 0 ? `${product.stock} in stock` : "Out of stock"}
-          </Badge>
-          {product.stock > 0 && product.stock <= 10 && (
-            <span className="text-sm text-destructive">
-              Only {product.stock} left!
-            </span>
-          )}
-        </div>
-
-        {/* Quantity and Add to Cart */}
-        <div className="space-y-4">
-          <div className="flex items-center space-x-4">
-            <label htmlFor="quantity" className="text-sm font-medium">
-              Quantity:
-            </label>
-            <div className="flex items-center border rounded-md">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                disabled={quantity <= 1}
-                className="cursor-pointer"
-              >
-                -
-              </Button>
-              <span className="px-4 py-2 text-sm">{quantity}</span>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() =>
-                  setQuantity(Math.min(product.stock, quantity + 1))
-                }
-                disabled={quantity >= product.stock}
-                className="cursor-pointer"
-              >
-                +
-              </Button>
+        {/* Variations */}
+        {variations.length > 0 && (
+          <div className="space-y-3">
+            <h3 className="font-semibold text-sm">VARIATION AVAILABLE</h3>
+            <div className="flex space-x-2 flex-wrap">
+              {variations.map((variation) => (
+                <Button
+                  key={variation.id}
+                  variant={
+                    selectedVariation === variation.id ? "default" : "outline"
+                  }
+                  size="sm"
+                  onClick={() => setSelectedVariation(variation.id)}
+                  className="cursor-pointer"
+                >
+                  {variation.name}
+                </Button>
+              ))}
             </div>
           </div>
+        )}
 
-          <div className="flex space-x-4">
-            <Button
-              size="lg"
-              className="flex-1 cursor-pointer"
-              disabled={product.stock === 0}
-            >
-              <ShoppingCart className="h-5 w-5 mr-2" />
-              Add to Cart
-            </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              className="cursor-pointer bg-transparent"
-            >
-              <Heart className="h-5 w-5" />
-            </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              className="cursor-pointer bg-transparent"
-            >
-              <Share2 className="h-5 w-5" />
-            </Button>
+        <div className="space-y-4">
+          {variations.length === 0 && (
+            <div className="flex items-center space-x-4">
+              <div className="flex items-center border rounded-md">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                  className="cursor-pointer px-3"
+                >
+                  <Minus className="h-4 w-4" />
+                </Button>
+                <span className="px-4 py-2 min-w-[3rem] text-center">
+                  {quantity}
+                </span>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setQuantity(quantity + 1)}
+                  className="cursor-pointer px-3"
+                >
+                  <Plus className="h-4 w-4" />
+                </Button>
+              </div>
+              <span className="text-sm text-muted-foreground">
+                ({quantity} item(s) added)
+              </span>
+            </div>
+          )}
+
+          <Button
+            size="lg"
+            className="w-full cursor-pointer bg-orange-500 hover:bg-orange-600 text-white"
+            disabled={product.stock === 0}
+            onClick={handleAddToCart}
+          >
+            <ShoppingCart className="h-5 w-5 mr-2" />
+            Add to cart
+          </Button>
+        </div>
+
+        {/* Promotions */}
+        <div className="space-y-3">
+          <h3 className="font-semibold text-sm">PROMOTIONS</h3>
+          <div className="space-y-2">
+            <div className="flex items-center space-x-2">
+              <Badge variant="secondary" className="text-xs">
+                FREE DELIVERY
+              </Badge>
+              <span className="text-sm text-muted-foreground">
+                on orders above UGX 200,000
+              </span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Badge variant="secondary" className="text-xs">
+                BULK DISCOUNT
+              </Badge>
+              <span className="text-sm text-muted-foreground">
+                Buy 2 or more and save 5%
+              </span>
+            </div>
           </div>
         </div>
 
@@ -204,7 +332,7 @@ export function ProductDetails({ product }: ProductDetailsProps) {
               <Truck className="h-6 w-6 mx-auto mb-2 text-primary" />
               <p className="text-sm font-medium">Free Shipping</p>
               <p className="text-xs text-muted-foreground">
-                On orders over Ugx 200,000
+                On orders over UGX 200,000
               </p>
             </CardContent>
           </Card>
@@ -223,8 +351,9 @@ export function ProductDetails({ product }: ProductDetailsProps) {
             </CardContent>
           </Card>
         </div>
+      </div>
 
-        {/* Product Details Tabs */}
+      <div className="lg:col-span-2 mt-12">
         <Tabs defaultValue="specifications" className="w-full">
           <TabsList className="grid w-full grid-cols-3">
             <TabsTrigger value="specifications" className="cursor-pointer">
@@ -237,37 +366,92 @@ export function ProductDetails({ product }: ProductDetailsProps) {
               Returns
             </TabsTrigger>
           </TabsList>
-          <TabsContent value="specifications" className="space-y-4">
-            <Card>
-              <CardContent className="p-4">
-                {product.specifications ? (
-                  <div className="space-y-2">
+          <TabsContent value="specifications" className="space-y-6">
+            {product.mainFeatures && product.mainFeatures.length > 0 && (
+              <Card>
+                <CardContent className="p-6">
+                  <h3 className="font-semibold text-lg mb-4">MAIN FEATURES</h3>
+                  <div className="space-y-3">
+                    {product.mainFeatures.map((feature, index) => (
+                      <div key={index} className="flex items-start space-x-2">
+                        <span className="text-primary">•</span>
+                        <span className="text-sm">{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {product.keyFeatures && product.keyFeatures.length > 0 && (
+                <Card>
+                  <CardContent className="p-6">
+                    <h3 className="font-semibold text-lg mb-4">KEY FEATURES</h3>
+                    <div className="space-y-3">
+                      {product.keyFeatures.map((feature, index) => (
+                        <div key={index} className="flex items-start space-x-2">
+                          <span className="text-primary">•</span>
+                          <span className="text-sm">{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
+
+              {product.whatsInTheBox && product.whatsInTheBox.length > 0 && (
+                <Card>
+                  <CardContent className="p-6">
+                    <h3 className="font-semibold text-lg mb-4">
+                      WHAT&apos;S IN THE BOX
+                    </h3>
+                    <div className="space-y-2">
+                      {product.whatsInTheBox.map((item, index) => (
+                        <div key={index} className="flex items-start space-x-2">
+                          <span className="text-primary">•</span>
+                          <span className="text-sm">{item}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
+            </div>
+
+            {/* Specifications Table */}
+            {product.specifications && (
+              <Card>
+                <CardContent className="p-6">
+                  <h3 className="font-semibold text-lg mb-4">SPECIFICATIONS</h3>
+                  <div className="space-y-3">
                     {Object.entries(product.specifications).map(
                       ([key, value]) => (
-                        <div key={key} className="flex justify-between">
+                        <div
+                          key={key}
+                          className="flex justify-between py-2 border-b"
+                        >
                           <span className="font-medium">{key}:</span>
                           <span className="text-muted-foreground">{value}</span>
                         </div>
                       )
                     )}
                   </div>
-                ) : (
-                  <p className="text-muted-foreground">
-                    No specifications available.
-                  </p>
-                )}
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            )}
           </TabsContent>
+
+          {/* Shipping */}
           <TabsContent value="shipping" className="space-y-4">
             <Card>
               <CardContent className="p-4 space-y-2">
                 <p className="font-medium">Shipping Information</p>
                 <p className="text-sm text-muted-foreground">
-                  • Free standard shipping on orders over Ugx 200,000
+                  • Free standard shipping on orders over UGX 200,000
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  • Express shipping available for Ugx 20,000
+                  • Express shipping available for UGX 20,000
                 </p>
                 <p className="text-sm text-muted-foreground">
                   • Standard delivery: 1-2 business days
@@ -299,6 +483,98 @@ export function ProductDetails({ product }: ProductDetailsProps) {
           </TabsContent>
         </Tabs>
       </div>
+
+      <Dialog open={showVariationModal} onOpenChange={setShowVariationModal}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle className="flex items-center justify-between">
+              Please select a variation
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setShowVariationModal(false)}
+                className="cursor-pointer"
+              >
+                <X className="h-4 w-4" />
+              </Button>
+            </DialogTitle>
+          </DialogHeader>
+          <div className="space-y-6">
+            {variations.map((variation) => (
+              <div key={variation.id} className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h4 className="font-semibold text-lg">{variation.name}</h4>
+                    <div className="flex items-center space-x-2">
+                      <span className="text-lg font-bold">
+                        UGX {variation.price.toLocaleString()}
+                      </span>
+                      {variation.originalPrice && (
+                        <span className="text-sm text-muted-foreground line-through">
+                          UGX {variation.originalPrice.toLocaleString()}
+                        </span>
+                      )}
+                    </div>
+                    <p
+                      className={`text-sm ${
+                        variation.stock <= 5 ? "text-red-600" : "text-green-600"
+                      }`}
+                    >
+                      {variation.stock <= 5
+                        ? `${variation.stock} units left`
+                        : "In stock"}
+                    </p>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      onClick={() =>
+                        handleVariationQuantityChange(variation.id, -1)
+                      }
+                      className="cursor-pointer bg-gray-100"
+                    >
+                      <Minus className="h-4 w-4" />
+                    </Button>
+                    <span className="min-w-[2rem] text-center">
+                      {variationQuantities[variation.id] || 0}
+                    </span>
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      onClick={() =>
+                        handleVariationQuantityChange(variation.id, 1)
+                      }
+                      className="cursor-pointer bg-orange-500 text-white hover:bg-orange-600"
+                    >
+                      <Plus className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            ))}
+
+            <div className="flex space-x-4 pt-4">
+              <Button
+                variant="outline"
+                size="lg"
+                className="flex-1 cursor-pointer bg-transparent"
+                onClick={() => setShowVariationModal(false)}
+              >
+                Continue Shopping
+              </Button>
+              <Button
+                size="lg"
+                className="flex-1 cursor-pointer bg-orange-500 hover:bg-orange-600 text-white"
+                onClick={handleVariationAddToCart}
+                disabled={totalVariationItems === 0}
+              >
+                Go to Cart
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
