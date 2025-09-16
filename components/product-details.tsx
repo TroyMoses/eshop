@@ -84,7 +84,7 @@ export function ProductDetails({ product }: ProductDetailsProps) {
   );
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 px-2 lg:px-5">
       {/* Product Images */}
       <div className="space-y-4" data-aos="fade-right">
         <div className="relative h-96 lg:h-[500px] overflow-hidden rounded-lg bg-muted">
@@ -185,19 +185,19 @@ export function ProductDetails({ product }: ProductDetailsProps) {
         <div className="space-y-2">
           <div className="flex items-center space-x-4">
             {variations.length > 0 ? (
-              <span className="text-2xl md:text-3xl font-bold text-primary">
+              <span className="text-xl md:text-2xl font-bold text-primary">
                 UGX{" "}
                 {Math.min(...variations.map((v) => v.price)).toLocaleString()} -
                 UGX{" "}
                 {Math.max(...variations.map((v) => v.price)).toLocaleString()}
               </span>
             ) : (
-              <span className="text-2xl md:text-3xl font-bold text-primary">
+              <span className="text-xl md:text-2xl font-bold text-primary">
                 UGX {product.price.toLocaleString()}
               </span>
             )}
             {product.originalPrice && (
-              <span className="text-lg text-muted-foreground line-through">
+              <span className="text-md text-muted-foreground line-through">
                 UGX {product.originalPrice.toLocaleString()}
               </span>
             )}

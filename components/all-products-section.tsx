@@ -74,9 +74,9 @@ export function AllProductsSection() {
   };
 
   return (
-    <section className="py-16 bg-background">
+    <section className="py-5 md:py-10 bg-background">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12" data-aos="fade-up">
+        <div className="text-center mb-10" data-aos="fade-up">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-balance">
             All Products
           </h2>
@@ -142,9 +142,6 @@ export function AllProductsSection() {
                       <h3 className="font-semibold text-lg mb-2 line-clamp-2 hover:text-primary transition-colors text-balance">
                         {product.name}
                       </h3>
-                      <p className="text-muted-foreground text-sm mb-3 line-clamp-2 text-pretty">
-                        {product.description}
-                      </p>
 
                       <div className="flex items-center mb-3">
                         <div className="flex items-center">
@@ -166,11 +163,11 @@ export function AllProductsSection() {
 
                       <div className="flex items-center justify-between mb-4">
                         <div className="flex items-center space-x-2">
-                          <span className="text-xl font-bold text-primary">
+                          <span className="text-sm font-bold text-primary">
                             UGX {product.price.toLocaleString()}
                           </span>
                           {product.originalPrice && (
-                            <span className="text-sm text-muted-foreground line-through">
+                            <span className="text-xs text-muted-foreground line-through">
                               UGX {product.originalPrice.toLocaleString()}
                             </span>
                           )}
