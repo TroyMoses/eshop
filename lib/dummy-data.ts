@@ -720,7 +720,7 @@ export const products: Product[] = [
     updatedAt: "2024-01-26T15:30:00Z",
   },
   {
-    id: "12",
+    id: "8",
     name: "Mechanical Gaming Keyboard",
     description: "RGB backlit mechanical keyboard with Cherry MX switches",
     price: 149,
@@ -780,7 +780,7 @@ export const products: Product[] = [
     updatedAt: "2024-01-21T10:15:00Z",
   },
   {
-    id: "3",
+    id: "9",
     name: "Sony WH-1000XM5",
     description: "Industry-leading noise canceling wireless headphones",
     price: 399,
@@ -838,7 +838,7 @@ export const products: Product[] = [
     updatedAt: "2024-01-22T13:15:00Z",
   },
   {
-    id: "13",
+    id: "10",
     name: "PlayStation 5",
     description: "Next-generation gaming console with ultra-high speed SSD",
     price: 499,
@@ -893,7 +893,7 @@ export const products: Product[] = [
     updatedAt: "2024-01-19T18:45:00Z",
   },
   {
-    id: "14",
+    id: "11",
     name: "Amazon Echo Dot (5th Gen)",
     description: "Smart speaker with Alexa voice control",
     price: 49,
@@ -953,7 +953,7 @@ export const products: Product[] = [
     updatedAt: "2024-01-23T11:30:00Z",
   },
   {
-    id: "15",
+    id: "12",
     name: "AirPods Pro (2nd Generation)",
     description: "Wireless earbuds with active noise cancellation",
     price: 249,
@@ -1018,7 +1018,7 @@ export const products: Product[] = [
     updatedAt: "2024-01-17T16:20:00Z",
   },
   {
-    id: "4",
+    id: "13",
     name: "Premium Cotton T-Shirt",
     description: "Soft, comfortable cotton t-shirt perfect for everyday wear",
     price: 29,
@@ -1077,7 +1077,7 @@ export const products: Product[] = [
     updatedAt: "2024-01-19T10:30:00Z",
   },
   {
-    id: "16",
+    id: "14",
     name: "Designer Leather Handbag",
     description: "Elegant leather handbag perfect for professional settings",
     price: 299,
@@ -1141,7 +1141,7 @@ export const products: Product[] = [
     updatedAt: "2024-01-16T15:45:00Z",
   },
   {
-    id: "5",
+    id: "15",
     name: "Ergonomic Office Chair",
     description:
       "Professional office chair with lumbar support and adjustable height",
@@ -1206,7 +1206,7 @@ export const products: Product[] = [
     updatedAt: "2024-01-21T12:00:00Z",
   },
   {
-    id: "17",
+    id: "16",
     name: "Standing Desk Converter",
     description: "Adjustable standing desk converter for healthier work",
     price: 199,
@@ -1270,7 +1270,7 @@ export const products: Product[] = [
     updatedAt: "2024-01-14T13:40:00Z",
   },
   {
-    id: "6",
+    id: "17",
     name: "Vitamin C Serum",
     description:
       "Brightening vitamin C serum for radiant, healthy-looking skin",
