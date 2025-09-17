@@ -2,7 +2,15 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Search, ShoppingCart, Menu, X, User, Heart } from "lucide-react";
+import {
+  Search,
+  ShoppingCart,
+  Menu,
+  X,
+  User,
+  Heart,
+  LogOut,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -14,11 +22,27 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { categories } from "@/lib/dummy-data";
+import { useAuth } from "@/contexts/auth-context";
+import { useCart } from "@/contexts/cart-context";
+import { logoutAction } from "@/lib/actions/auth";
 
 export function Header() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [cartCount] = useState(3); // This would come from cart state
+  const { user, setUser } = useAuth();
+  const { getTotalItems, setIsOpen } = useCart();
+
+  const handleLogout = async () => {
+    await logoutAction();
+    setUser(null);
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -135,24 +159,73 @@ export function Header() {
             </Button>
 
             {/* Account */}
-            <Button
-              variant="ghost"
-              size="icon"
-              className="hidden sm:flex cursor-pointer"
-            >
-              <User className="h-5 w-5" />
-            </Button>
+            {user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="hidden sm:flex cursor-pointer"
+                  >
+                    <User className="h-5 w-5" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem disabled>
+                    <div className="flex flex-col">
+                      <span className="font-medium">{user.name}</span>
+                      <span className="text-sm text-muted-foreground">
+                        {user.email}
+                      </span>
+                    </div>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem
+                    onClick={handleLogout}
+                    className="cursor-pointer"
+                  >
+                    <LogOut className="h-4 w-4 mr-2" />
+                    Logout
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="hidden sm:flex cursor-pointer"
+                  >
+                    <User className="h-5 w-5" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem asChild>
+                    <Link href="/login" className="cursor-pointer">
+                      Login
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/register" className="cursor-pointer">
+                      Register
+                    </Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
 
             {/* Cart */}
             <Button
               variant="ghost"
               size="icon"
               className="relative cursor-pointer"
+              onClick={() => setIsOpen(true)}
             >
               <ShoppingCart className="h-5 w-5" />
-              {cartCount > 0 && (
+              {getTotalItems() > 0 && (
                 <Badge className="absolute -top-2 -right-2 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs">
-                  {cartCount}
+                  {getTotalItems()}
                 </Badge>
               )}
             </Button>
@@ -176,6 +249,37 @@ export function Header() {
                   </SheetDescription>
                 </SheetHeader>
                 <div className="mt-6 space-y-4">
+                  {user ? (
+                    <div className="border-b pb-4">
+                      <p className="font-medium">{user.name}</p>
+                      <p className="text-sm text-muted-foreground">
+                        {user.email}
+                      </p>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={handleLogout}
+                        className="mt-2 cursor-pointer bg-transparent"
+                      >
+                        <LogOut className="h-4 w-4 mr-2" />
+                        Logout
+                      </Button>
+                    </div>
+                  ) : (
+                    <div className="border-b pb-4 space-y-2">
+                      <Button
+                        asChild
+                        variant="outline"
+                        className="w-full cursor-pointer bg-transparent"
+                      >
+                        <Link href="/login">Login</Link>
+                      </Button>
+                      <Button asChild className="w-full cursor-pointer">
+                        <Link href="/register">Register</Link>
+                      </Button>
+                    </div>
+                  )}
+
                   <Link
                     href="/"
                     className="block py-2 text-lg font-medium cursor-pointer"

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   Star,
   ShoppingCart,
@@ -28,6 +29,9 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import type { Product } from "@/lib/types";
+import { useAuth } from "@/contexts/auth-context";
+import { useCart } from "@/contexts/cart-context";
+import { toast } from "sonner";
 
 interface ProductDetailsProps {
   product: Product;
@@ -41,6 +45,10 @@ export function ProductDetails({ product }: ProductDetailsProps) {
   const [variationQuantities, setVariationQuantities] = useState<
     Record<string, number>
   >({});
+
+  const { user } = useAuth();
+  const { addToCart, setIsOpen } = useCart();
+  const router = useRouter();
 
   const discountPercentage = product.originalPrice
     ? Math.round(
@@ -61,21 +69,47 @@ export function ProductDetails({ product }: ProductDetailsProps) {
   };
 
   const handleAddToCart = () => {
+    if (!user) {
+      toast.error("Please login to add items to cart");
+      router.push("/login");
+      return;
+    }
+
     if (variations.length > 0) {
       setShowVariationModal(true);
     } else {
-      // Add single product to cart
-      console.log("Adding to cart:", { product, quantity });
+      addToCart(product, quantity);
+      toast.success(`Added ${product.name} to cart`);
+      setIsOpen(true);
     }
   };
 
   const handleVariationAddToCart = () => {
+    if (!user) {
+      toast.error("Please login to add items to cart");
+      router.push("/login");
+      return;
+    }
+
     const selectedItems = Object.entries(variationQuantities).filter(
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       ([_, qty]) => qty > 0
     );
-    console.log("Adding variations to cart:", selectedItems);
+
+    selectedItems.forEach(([variationId, qty]) => {
+      const variation = variations.find((v) => v.id === variationId);
+      if (variation) {
+        addToCart(product, qty, variation.name);
+      }
+    });
+
+    if (selectedItems.length > 0) {
+      toast.success(`Added ${selectedItems.length} variation(s) to cart`);
+      setIsOpen(true);
+    }
+
     setShowVariationModal(false);
+    setVariationQuantities({});
   };
 
   const totalVariationItems = Object.values(variationQuantities).reduce(
@@ -84,7 +118,7 @@ export function ProductDetails({ product }: ProductDetailsProps) {
   );
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 px-2 lg:px-5">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
       {/* Product Images */}
       <div className="space-y-4" data-aos="fade-right">
         <div className="relative h-96 lg:h-[500px] overflow-hidden rounded-lg bg-muted">
@@ -185,19 +219,19 @@ export function ProductDetails({ product }: ProductDetailsProps) {
         <div className="space-y-2">
           <div className="flex items-center space-x-4">
             {variations.length > 0 ? (
-              <span className="text-xl md:text-2xl font-bold text-primary">
+              <span className="text-2xl md:text-3xl font-bold text-primary">
                 UGX{" "}
                 {Math.min(...variations.map((v) => v.price)).toLocaleString()} -
                 UGX{" "}
                 {Math.max(...variations.map((v) => v.price)).toLocaleString()}
               </span>
             ) : (
-              <span className="text-xl md:text-2xl font-bold text-primary">
+              <span className="text-2xl md:text-3xl font-bold text-primary">
                 UGX {product.price.toLocaleString()}
               </span>
             )}
             {product.originalPrice && (
-              <span className="text-md text-muted-foreground line-through">
+              <span className="text-lg text-muted-foreground line-through">
                 UGX {product.originalPrice.toLocaleString()}
               </span>
             )}
@@ -298,7 +332,7 @@ export function ProductDetails({ product }: ProductDetailsProps) {
             onClick={handleAddToCart}
           >
             <ShoppingCart className="h-5 w-5 mr-2" />
-            Add to cart
+            {user ? "Add to cart" : "Login to Add to Cart"}
           </Button>
         </div>
 

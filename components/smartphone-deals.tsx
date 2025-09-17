@@ -1,7 +1,10 @@
 "use client";
 
+import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { products } from "@/lib/dummy-data";
+import Image from "next/image";
 
 const bannerDeals = [
   {
@@ -24,56 +27,16 @@ const bannerDeals = [
   },
 ];
 
-const phoneDeals = [
-  {
-    id: 1,
-    name: "Tecno Spark 8C, 4GB ...",
-    originalPrice: "650,000 UGX",
-    salePrice: "471,700 UGX",
-    image: "/tecno-spark-phone.jpg",
-    isRefurbished: false,
-  },
-  {
-    id: 2,
-    name: "Smart Watch BT For IOS...",
-    originalPrice: "95,000 UGX",
-    salePrice: "80,500 UGX",
-    image: "/smartwatch-black.jpg",
-    isRefurbished: false,
-  },
-  {
-    id: 3,
-    name: "Hisens TV,Smart HDMI...",
-    originalPrice: "650,000 UGX",
-    salePrice: "571,700 UGX",
-    image: "/red-smartphone.jpg",
-    isRefurbished: true,
-  },
-  {
-    id: 4,
-    name: "Electro Master Kettle 2L...",
-    originalPrice: "80,000 UGX",
-    salePrice: "72,700 UGX",
-    image: "/iphone-gold.jpg",
-    isRefurbished: true,
-  },
-  {
-    id: 5,
-    name: "Micro SD card Memory c...",
-    originalPrice: "60,000 UGX",
-    salePrice: "25,700 UGX",
-    image: "/purple-smartphone.jpg",
-    isRefurbished: false,
-  },
-  {
-    id: 6,
-    name: "DJack Speaker 3.0CH...",
-    originalPrice: "450,000 UGX",
-    salePrice: "165,200 UGX",
-    image: "/blue-smartphone.jpg",
-    isRefurbished: false,
-  },
-];
+const phoneDeals = products
+  .filter(
+    (p) =>
+      p.category === "phones-tablets" ||
+      p.name.toLowerCase().includes("phone") ||
+      p.name.toLowerCase().includes("samsung") ||
+      p.name.toLowerCase().includes("iphone") ||
+      p.name.toLowerCase().includes("tecno")
+  )
+  .slice(0, 6);
 
 export function SmartphoneDeals() {
   return (
@@ -95,7 +58,9 @@ export function SmartphoneDeals() {
             >
               <h3 className="text-xl font-bold mb-2">{banner.title}</h3>
               <div className="absolute right-0 bottom-0 opacity-20">
-                <img
+                <Image
+                  width={150}
+                  height={150}
                   src={banner.image || "/placeholder.svg"}
                   alt={banner.title}
                   className="w-32 h-32 object-cover"
@@ -108,38 +73,43 @@ export function SmartphoneDeals() {
         {/* Phone Products Grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
           {phoneDeals.map((phone) => (
-            <Card
-              key={phone.id}
-              className="bg-white hover:shadow-lg transition-shadow cursor-pointer"
-            >
-              <CardContent className="p-3">
-                <div className="relative">
-                  <div className="aspect-square mb-3 bg-gray-100 rounded-lg overflow-hidden">
-                    <img
-                      src={phone.image || "/placeholder.svg"}
-                      alt={phone.name}
-                      className="w-full h-full object-cover"
-                    />
+            <Link key={phone.id} href={`/products/${phone.id}`}>
+              <Card className="bg-white hover:shadow-lg transition-shadow cursor-pointer">
+                <CardContent className="p-3">
+                  <div className="relative">
+                    <div className="aspect-square mb-3 bg-gray-100 rounded-lg overflow-hidden">
+                      <Image
+                        width={200}
+                        height={200}
+                        src={phone.images[0] || "/placeholder.svg"}
+                        alt={phone.name}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    {phone.price && (
+                      <Badge className="absolute top-2 right-2 bg-red-500 text-white text-xs">
+                        SALE
+                      </Badge>
+                    )}
                   </div>
-                  {phone.isRefurbished && (
-                    <Badge className="absolute top-2 right-2 bg-red-500 text-white text-xs">
-                      REFURBISHED
-                    </Badge>
-                  )}
-                </div>
-                <h3 className="text-sm font-medium mb-2 line-clamp-2">
-                  {phone.name}
-                </h3>
-                <div className="space-y-1">
-                  <div className="text-lg font-bold text-primary">
-                    {phone.salePrice}
+                  <h3 className="text-sm font-medium mb-2 line-clamp-2">
+                    {phone.name}
+                  </h3>
+                  <div className="space-y-1">
+                    <div className="text-lg font-bold text-primary">
+                      UGX{" "}
+                      {phone.price?.toLocaleString() ||
+                        phone.price.toLocaleString()}
+                    </div>
+                    {phone.price && (
+                      <div className="text-sm text-gray-500 line-through">
+                        UGX {phone.price.toLocaleString()}
+                      </div>
+                    )}
                   </div>
-                  <div className="text-sm text-gray-500 line-through">
-                    {phone.originalPrice}
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            </Link>
           ))}
         </div>
       </div>

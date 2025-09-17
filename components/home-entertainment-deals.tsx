@@ -1,7 +1,10 @@
 "use client";
 
+import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { products } from "@/lib/dummy-data";
+import Image from "next/image";
 
 const bannerDeals = [
   {
@@ -14,7 +17,7 @@ const bannerDeals = [
   {
     id: 2,
     title: "Sound Bars",
-    subtitle: "Party bat home",
+    subtitle: "Party at home",
     image: "/placeholder.svg?height=200&width=300",
     bgColor: "bg-gradient-to-r from-purple-600 to-blue-600",
   },
@@ -27,56 +30,16 @@ const bannerDeals = [
   },
 ];
 
-const entertainmentDeals = [
-  {
-    id: 1,
-    name: "Tecno Spark 8C, 4GB ...",
-    originalPrice: "650,000 UGX",
-    salePrice: "471,700 UGX",
-    image: "/tecno-spark-phone.jpg",
-    badge: null,
-  },
-  {
-    id: 2,
-    name: "Smart Watch BT For IOS...",
-    originalPrice: "95,000 UGX",
-    salePrice: "80,500 UGX",
-    image: "/smartwatch-black.jpg",
-    badge: null,
-  },
-  {
-    id: 3,
-    name: "Hisens TV,Smart HDMI...",
-    originalPrice: "650,000 UGX",
-    salePrice: "571,700 UGX",
-    image: "/smart-tv.jpg",
-    badge: "1 Year W",
-  },
-  {
-    id: 4,
-    name: "Electro Master Kettle 2L...",
-    originalPrice: "80,000 UGX",
-    salePrice: "72,700 UGX",
-    image: "/electric-kettle.jpg",
-    badge: null,
-  },
-  {
-    id: 5,
-    name: "Micro SD card Memory c...",
-    originalPrice: "60,000 UGX",
-    salePrice: "25,700 UGX",
-    image: "/memory-card.jpg",
-    badge: "HIFINIT",
-  },
-  {
-    id: 6,
-    name: "DJack Speaker 3.0CH...",
-    originalPrice: "450,000 UGX",
-    salePrice: "165,200 UGX",
-    image: "/speaker-system.jpg",
-    badge: null,
-  },
-];
+const entertainmentDeals = products
+  .filter(
+    (p) =>
+      p.category === "electronics" ||
+      p.name.toLowerCase().includes("tv") ||
+      p.name.toLowerCase().includes("speaker") ||
+      p.name.toLowerCase().includes("sound") ||
+      p.name.toLowerCase().includes("home theater")
+  )
+  .slice(0, 6);
 
 export function HomeEntertainmentDeals() {
   return (
@@ -101,7 +64,9 @@ export function HomeEntertainmentDeals() {
                 <p className="text-sm opacity-90">{banner.subtitle}</p>
               </div>
               <div className="absolute right-0 bottom-0 opacity-30">
-                <img
+                <Image
+                  width={100}
+                  height={100}
                   src={banner.image || "/placeholder.svg"}
                   alt={banner.title}
                   className="w-24 h-24 object-cover"
@@ -114,38 +79,43 @@ export function HomeEntertainmentDeals() {
         {/* Entertainment Products Grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
           {entertainmentDeals.map((product) => (
-            <Card
-              key={product.id}
-              className="bg-white hover:shadow-lg transition-shadow cursor-pointer"
-            >
-              <CardContent className="p-3">
-                <div className="relative">
-                  <div className="aspect-square mb-3 bg-gray-100 rounded-lg overflow-hidden">
-                    <img
-                      src={product.image || "/placeholder.svg"}
-                      alt={product.name}
-                      className="w-full h-full object-cover"
-                    />
+            <Link key={product.id} href={`/products/${product.id}`}>
+              <Card className="bg-white hover:shadow-lg transition-shadow cursor-pointer">
+                <CardContent className="p-3">
+                  <div className="relative">
+                    <div className="aspect-square mb-3 bg-gray-100 rounded-lg overflow-hidden">
+                      <Image
+                        width={200}
+                        height={200}
+                        src={product.images[0] || "/placeholder.svg"}
+                        alt={product.name}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    {product.price && (
+                      <Badge className="absolute top-2 right-2 bg-yellow-500 text-black text-xs">
+                        SALE
+                      </Badge>
+                    )}
                   </div>
-                  {product.badge && (
-                    <Badge className="absolute top-2 right-2 bg-yellow-500 text-black text-xs">
-                      {product.badge}
-                    </Badge>
-                  )}
-                </div>
-                <h3 className="text-sm font-medium mb-2 line-clamp-2">
-                  {product.name}
-                </h3>
-                <div className="space-y-1">
-                  <div className="text-lg font-bold text-primary">
-                    {product.salePrice}
+                  <h3 className="text-sm font-medium mb-2 line-clamp-2">
+                    {product.name}
+                  </h3>
+                  <div className="space-y-1">
+                    <div className="text-lg font-bold text-primary">
+                      UGX{" "}
+                      {product.price?.toLocaleString() ||
+                        product.price.toLocaleString()}
+                    </div>
+                    {product.price && (
+                      <div className="text-sm text-gray-500 line-through">
+                        UGX {product.price.toLocaleString()}
+                      </div>
+                    )}
                   </div>
-                  <div className="text-sm text-gray-500 line-through">
-                    {product.originalPrice}
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            </Link>
           ))}
         </div>
       </div>
