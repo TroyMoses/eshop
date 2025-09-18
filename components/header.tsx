@@ -1,14 +1,16 @@
 "use client";
 
+import type React from "react";
+
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   Search,
   ShoppingCart,
   Menu,
   X,
   User,
-  Heart,
   LogOut,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -36,12 +38,27 @@ import { logoutAction } from "@/lib/actions/auth";
 
 export function Header() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const { user, setUser } = useAuth();
   const { getTotalItems, setIsOpen } = useCart();
+  const router = useRouter();
 
   const handleLogout = async () => {
     await logoutAction();
     setUser(null);
+  };
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+      setIsSearchOpen(false);
+      setSearchQuery("");
+    }
+  };
+
+  const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
   };
 
   return (
@@ -70,7 +87,7 @@ export function Header() {
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2 cursor-pointer">
+          <Link href="/" className="flex items-center space-x-2 cursor-pointer md:mr-5">
             <div className="h-8 w-8 bg-primary rounded-lg flex items-center justify-center">
               <span className="text-primary-foreground font-bold text-lg">
                 R
@@ -89,32 +106,17 @@ export function Header() {
             >
               Home
             </Link>
-            <div className="relative group">
-              <button className="text-foreground hover:text-primary transition-colors cursor-pointer">
-                Categories
-              </button>
-              <div className="absolute top-full left-0 mt-2 w-64 bg-card border rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                <div className="p-4 space-y-2">
-                  {categories.slice(0, 6).map((category) => (
-                    <Link
-                      key={category.id}
-                      href={`/categories/${category.slug}`}
-                      className="flex items-center space-x-3 p-2 rounded-md hover:bg-muted transition-colors cursor-pointer"
-                    >
-                      <span className="text-lg">{category.icon}</span>
-                      <span className="text-sm font-medium">
-                        {category.name}
-                      </span>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            </div>
             <Link
-              href="/deals"
+              href="/allproducts"
               className="text-foreground hover:text-primary transition-colors cursor-pointer"
             >
-              Deals
+              All Products
+            </Link>
+            <Link
+              href="/search"
+              className="text-foreground hover:text-primary transition-colors cursor-pointer"
+            >
+              Search Products
             </Link>
             <Link
               href="/about"
@@ -126,15 +128,16 @@ export function Header() {
 
           {/* Search Bar */}
           <div className="hidden md:flex items-center flex-1 max-w-md mx-8">
-            <div className="relative w-full">
+            <form onSubmit={handleSearch} className="relative w-full">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
               <Input
                 type="search"
                 placeholder="Search products..."
                 className="pl-10 pr-4 cursor-pointer"
-                onClick={() => setIsSearchOpen(true)}
+                value={searchQuery}
+                onChange={handleSearchInputChange}
               />
-            </div>
+            </form>
           </div>
 
           {/* Action Buttons */}
@@ -147,15 +150,6 @@ export function Header() {
               onClick={() => setIsSearchOpen(true)}
             >
               <Search className="h-5 w-5" />
-            </Button>
-
-            {/* Wishlist */}
-            <Button
-              variant="ghost"
-              size="icon"
-              className="hidden sm:flex cursor-pointer"
-            >
-              <Heart className="h-5 w-5" />
             </Button>
 
             {/* Account */}
@@ -323,13 +317,18 @@ export function Header() {
         <div className="fixed inset-0 z-50 bg-black/50 flex items-start justify-center pt-20">
           <div className="bg-background w-full max-w-2xl mx-4 rounded-lg shadow-lg">
             <div className="p-4 border-b">
-              <div className="flex items-center space-x-4">
+              <form
+                onSubmit={handleSearch}
+                className="flex items-center space-x-4"
+              >
                 <div className="relative flex-1">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
                   <Input
                     type="search"
                     placeholder="Search products..."
                     className="pl-10 pr-4"
+                    value={searchQuery}
+                    onChange={handleSearchInputChange}
                     autoFocus
                   />
                 </div>
@@ -341,11 +340,13 @@ export function Header() {
                 >
                   <X className="h-5 w-5" />
                 </Button>
-              </div>
+              </form>
             </div>
             <div className="p-4">
               <p className="text-muted-foreground text-sm">
-                Start typing to search products...
+                {searchQuery
+                  ? `Press Enter to search for "${searchQuery}"`
+                  : "Start typing to search products..."}
               </p>
             </div>
           </div>

@@ -11,21 +11,21 @@ const bannerDeals = [
     id: 1,
     title: "Cinema at home",
     subtitle: "Television deals",
-    image: "/placeholder.svg?height=200&width=300",
+    image: "/banners/tv2.jpg",
     bgColor: "bg-gradient-to-r from-red-600 to-orange-600",
   },
   {
     id: 2,
     title: "Sound Bars",
     subtitle: "Party at home",
-    image: "/placeholder.svg?height=200&width=300",
+    image: "/banners/soundbar.jpg",
     bgColor: "bg-gradient-to-r from-purple-600 to-blue-600",
   },
   {
     id: 3,
     title: "Home theaters",
     subtitle: "Sound setup",
-    image: "/placeholder.svg?height=200&width=300",
+    image: "/banners/theater1.jpg",
     bgColor: "bg-gradient-to-r from-gray-700 to-gray-900",
   },
 ];
@@ -69,7 +69,7 @@ export function HomeEntertainmentDeals() {
                   height={100}
                   src={banner.image || "/placeholder.svg"}
                   alt={banner.title}
-                  className="w-24 h-24 object-cover"
+                  className="w-[120px] h-[120px] object-cover"
                 />
               </div>
             </div>

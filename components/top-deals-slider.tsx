@@ -109,7 +109,7 @@ export function TopDealsSlider() {
                 <div key={category.id} className="flex-shrink-0 w-1/5 px-2">
                   <div className="text-center cursor-pointer group">
                     <div
-                      className={`w-20 h-20 mx-auto rounded-full ${category.bgColor} flex items-center justify-center mb-3 group-hover:scale-105 transition-transform`}
+                      className={`w-24 h-24 mx-auto rounded-full ${category.bgColor} flex items-center justify-center mb-3 group-hover:scale-105 transition-transform`}
                     >
                       {category.id === 1 ? (
                         <div className="text-center">
@@ -124,7 +124,7 @@ export function TopDealsSlider() {
                           </div>
                         </div>
                       ) : (
-                        <span className="text-2xl">{category.icon}</span>
+                        <span className="text-5xl">{category.icon}</span>
                       )}
                     </div>
                     <h3

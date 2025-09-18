@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Star, ShoppingCart, Heart } from "lucide-react";
+import { Star, ShoppingCart } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -55,29 +55,11 @@ export function ProductGrid({ products }: ProductGridProps) {
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-300"
                     />
-                    {product.originalPrice && (
-                      <Badge className="absolute top-3 left-3 bg-destructive text-destructive-foreground">
-                        Sale
-                      </Badge>
-                    )}
                     {product.featured && (
                       <Badge className="absolute top-3 right-3 bg-primary text-primary-foreground">
                         Featured
                       </Badge>
                     )}
-                    <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <Button
-                        variant="secondary"
-                        size="icon"
-                        className="cursor-pointer"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          e.stopPropagation();
-                        }}
-                      >
-                        <Heart className="h-4 w-4" />
-                      </Button>
-                    </div>
                   </div>
 
                   <div className="p-4">
@@ -89,9 +71,6 @@ export function ProductGrid({ products }: ProductGridProps) {
                     <h3 className="font-semibold text-lg mb-2 line-clamp-2 hover:text-primary transition-colors text-balance">
                       {product.name}
                     </h3>
-                    <p className="text-muted-foreground text-sm mb-3 line-clamp-2 text-pretty">
-                      {product.description}
-                    </p>
 
                     <div className="flex items-center mb-3">
                       <div className="flex items-center">
@@ -113,18 +92,18 @@ export function ProductGrid({ products }: ProductGridProps) {
 
                     <div className="flex items-center justify-between mb-4">
                       <div className="flex items-center space-x-2">
-                        <span className="text-xl font-bold text-primary">
+                        <span className="text-[15px] font-bold text-primary">
                           UGX {product.price.toLocaleString()}
                         </span>
                         {product.originalPrice && (
-                          <span className="text-sm text-muted-foreground line-through">
+                          <span className="text-[11px] text-muted-foreground line-through">
                             UGX {product.originalPrice.toLocaleString()}
                           </span>
                         )}
                       </div>
                       <Badge
                         variant={product.stock > 10 ? "default" : "destructive"}
-                        className="text-xs"
+                        className="text-[10px]"
                       >
                         {product.stock > 0
                           ? `${product.stock} left`

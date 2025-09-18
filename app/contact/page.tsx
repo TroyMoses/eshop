@@ -1,21 +1,19 @@
 import { ContactForm } from "@/components/contact-form";
 import { ContactInfo } from "@/components/contact-info";
-import { Header } from "@/components/header";
-import { Footer } from "@/components/footer";
+import { MainLayout } from "@/components/main-layout";
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
-      <main className="py-16">
+    <MainLayout>
+      <div className="py-16">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12" data-aos="fade-up">
             <h1 className="text-4xl font-bold mb-4 text-balance">
               Get in Touch
             </h1>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto text-pretty">
-              Have questions about our products or need assistance? We&apos;re here
-              to help!
+              Have questions about our products or need assistance? We&apos;re
+              here to help!
             </p>
           </div>
 
@@ -24,9 +22,8 @@ export default function ContactPage() {
             <ContactInfo />
           </div>
         </div>
-      </main>
-      <Footer />
-    </div>
+      </div>
+    </MainLayout>
   );
 }
 

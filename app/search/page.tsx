@@ -1,6 +1,5 @@
 import { SearchResults } from "@/components/search-results";
-import { Header } from "@/components/header";
-import { Footer } from "@/components/footer";
+import { MainLayout } from "@/components/main-layout";
 
 interface SearchPageProps {
   searchParams: {
@@ -12,13 +11,11 @@ interface SearchPageProps {
 
 export default function SearchPage({ searchParams }: SearchPageProps) {
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
-      <main className="py-8">
+    <MainLayout>
+      <div className="py-8">
         <SearchResults searchParams={searchParams} />
-      </main>
-      <Footer />
-    </div>
+      </div>
+    </MainLayout>
   );
 }
 
