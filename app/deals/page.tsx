@@ -1,18 +1,13 @@
 import { DealsHero } from "@/components/deals-hero";
 import { DealsGrid } from "@/components/deals-grid";
-import { Header } from "@/components/header";
-import { Footer } from "@/components/footer";
+import { MainLayout } from "@/components/main-layout";
 
 export default function DealsPage() {
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
-      <main>
-        <DealsHero />
-        <DealsGrid />
-      </main>
-      <Footer />
-    </div>
+    <MainLayout>
+      <DealsHero />
+      <DealsGrid />
+    </MainLayout>
   );
 }
 

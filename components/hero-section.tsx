@@ -25,7 +25,7 @@ export function HeroSection() {
   };
 
   return (
-    <section className="relative h-[500px] md:h-[600px] overflow-hidden bg-gradient-to-r from-muted to-card">
+    <section className="relative h-[350px] md:h-[400px] overflow-hidden bg-gradient-to-r from-muted to-card">
       <div className="absolute inset-0">
         {banners.map((banner, index) => (
           <div
@@ -46,12 +46,12 @@ export function HeroSection() {
         ))}
       </div>
 
-      <div className="relative z-10 container mx-auto px-4 h-full flex items-center">
-        <div className="max-w-2xl text-white" data-aos="fade-up">
-          <h1 className="text-4xl md:text-6xl font-bold mb-4 text-balance">
+      <div className="relative z-10 container mx-auto px-4 lg:px-8 h-full flex items-center">
+        <div className="max-w-xl text-white" data-aos="fade-up">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-balance">
             {banners[currentSlide]?.title}
           </h1>
-          <p className="text-lg md:text-xl mb-8 text-pretty opacity-90">
+          <p className="text-base md:text-lg mb-6 text-pretty opacity-90">
             {banners[currentSlide]?.subtitle}
           </p>
           <Button

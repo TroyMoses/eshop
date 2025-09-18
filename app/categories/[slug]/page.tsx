@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { ProductGrid } from "@/components/product-grid";
 import { CategoryHeader } from "@/components/category-header";
 import { ProductFilters } from "@/components/product-filters";
+import { MainLayout } from "@/components/main-layout";
 import { categories, products } from "@/lib/dummy-data";
 
 interface CategoryPageProps {
@@ -83,7 +84,7 @@ export default async function CategoryPage({
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <MainLayout>
       <CategoryHeader category={category} />
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col lg:flex-row gap-8">
@@ -95,7 +96,7 @@ export default async function CategoryPage({
           </main>
         </div>
       </div>
-    </div>
+    </MainLayout>
   );
 }
 
