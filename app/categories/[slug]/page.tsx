@@ -1,9 +1,9 @@
 import { notFound } from "next/navigation";
-import { ProductGrid } from "@/components/product-grid";
 import { CategoryHeader } from "@/components/category-header";
 import { ProductFilters } from "@/components/product-filters";
 import { MainLayout } from "@/components/main-layout";
 import { categories, products } from "@/lib/dummy-data";
+import { ProductGridCat } from "@/components/product-grid-cat";
 
 interface CategoryPageProps {
   params: {
@@ -92,7 +92,7 @@ export default async function CategoryPage({
             <ProductFilters category={category} />
           </aside>
           <main className="flex-1">
-            <ProductGrid products={categoryProducts} />
+            <ProductGridCat products={categoryProducts} />
           </main>
         </div>
       </div>

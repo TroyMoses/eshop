@@ -5,7 +5,7 @@ import { categories } from "@/lib/dummy-data";
 
 export function CategoriesSidebar() {
   return (
-    <aside className="w-64 bg-card border-r border-border h-full overflow-y-auto">
+    <aside className="w-[215px] bg-card border-r border-border h-full overflow-y-auto">
       <div className="p-4">
         <div className="flex items-center gap-2 mb-4">
           <h2 className="font-semibold text-foreground">ALL CATEGORIES</h2>

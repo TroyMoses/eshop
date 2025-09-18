@@ -130,7 +130,7 @@ export function ProductFilters({ category }: ProductFiltersProps) {
                 id={`sort-${option.value}`}
                 checked={searchParams.get("sort") === option.value}
                 onCheckedChange={() => updateFilter("sort", option.value)}
-                className="cursor-pointer"
+                className="cursor-pointer border border-foreground"
               />
               <Label
                 htmlFor={`sort-${option.value}`}
@@ -155,7 +155,7 @@ export function ProductFilters({ category }: ProductFiltersProps) {
                 id={`brand-${brand}`}
                 checked={searchParams.get("brand") === brand}
                 onCheckedChange={() => updateFilter("brand", brand)}
-                className="cursor-pointer"
+                className="cursor-pointer border border-foreground"
               />
               <Label
                 htmlFor={`brand-${brand}`}
@@ -180,7 +180,7 @@ export function ProductFilters({ category }: ProductFiltersProps) {
                 id={`price-${range.value}`}
                 checked={searchParams.get("price") === range.value}
                 onCheckedChange={() => updateFilter("price", range.value)}
-                className="cursor-pointer"
+                className="cursor-pointer border border-foreground"
               />
               <Label
                 htmlFor={`price-${range.value}`}
@@ -205,7 +205,7 @@ export function ProductFilters({ category }: ProductFiltersProps) {
                 id={`rating-${option.value}`}
                 checked={searchParams.get("rating") === option.value}
                 onCheckedChange={() => updateFilter("rating", option.value)}
-                className="cursor-pointer"
+                className="cursor-pointer border border-foreground"
               />
               <Label
                 htmlFor={`rating-${option.value}`}
