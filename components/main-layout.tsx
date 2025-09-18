@@ -13,21 +13,15 @@ interface MainLayoutProps {
 
 export function MainLayout({ children, showSidebar = true }: MainLayoutProps) {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background flex flex-col">
       <Header />
-      <div className="flex">
+      <div className="flex flex-1 relative">
         {showSidebar && (
-          <div className="hidden lg:block fixed left-0 top-[120px] bottom-0 z-40">
+          <div className="hidden lg:block sticky top-[120px] h-[calc(100vh-120px)] z-40">
             <CategoriesSidebar />
           </div>
         )}
-        <main
-          className={`flex-1 ${
-            showSidebar ? "lg:ml-64" : ""
-          } min-h-[calc(100vh-120px)]`}
-        >
-          {children}
-        </main>
+        <main className="flex-1 min-h-[calc(100vh-120px)]">{children}</main>
       </div>
       <Footer />
     </div>

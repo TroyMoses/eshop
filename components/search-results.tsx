@@ -1,6 +1,9 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import type React from "react";
+
+import { useState, useMemo, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { Search, SlidersHorizontal } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -25,11 +28,26 @@ interface SearchResultsProps {
 }
 
 export function SearchResults({ searchParams }: SearchResultsProps) {
+  const router = useRouter();
+
   const [searchQuery, setSearchQuery] = useState(searchParams.q || "");
   const [selectedCategory, setSelectedCategory] = useState(
     searchParams.category || ""
   );
   const [sortBy, setSortBy] = useState(searchParams.sort || "relevance");
+
+  useEffect(() => {
+    const params = new URLSearchParams();
+    if (searchQuery) params.set("q", searchQuery);
+    if (selectedCategory && selectedCategory !== "all")
+      params.set("category", selectedCategory);
+    if (sortBy && sortBy !== "relevance") params.set("sort", sortBy);
+
+    const newUrl = params.toString()
+      ? `/search?${params.toString()}`
+      : "/search";
+    router.replace(newUrl, { scroll: false });
+  }, [searchQuery, selectedCategory, sortBy, router]);
 
   const filteredProducts = useMemo(() => {
     let results = products;
@@ -50,7 +68,7 @@ export function SearchResults({ searchParams }: SearchResultsProps) {
     }
 
     // Filter by category
-    if (selectedCategory) {
+    if (selectedCategory && selectedCategory !== "all") {
       results = results.filter(
         (product) => product.category === selectedCategory
       );
@@ -85,6 +103,11 @@ export function SearchResults({ searchParams }: SearchResultsProps) {
     return results;
   }, [searchQuery, selectedCategory, sortBy]);
 
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // The useEffect will handle URL update
+  };
+
   return (
     <div className="container mx-auto px-4">
       {/* Search Header */}
@@ -108,7 +131,7 @@ export function SearchResults({ searchParams }: SearchResultsProps) {
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             {/* Search Input */}
-            <div className="relative">
+            <form onSubmit={handleSearchSubmit} className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
               <Input
                 type="search"
@@ -117,12 +140,14 @@ export function SearchResults({ searchParams }: SearchResultsProps) {
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-10"
               />
-            </div>
+            </form>
 
             {/* Category Filter */}
             <Select
-              value={selectedCategory}
-              onValueChange={setSelectedCategory}
+              value={selectedCategory || "all"}
+              onValueChange={(value) =>
+                setSelectedCategory(value === "all" ? "" : value)
+              }
             >
               <SelectTrigger>
                 <SelectValue placeholder="All Categories" />
@@ -196,8 +221,8 @@ export function SearchResults({ searchParams }: SearchResultsProps) {
               <Search className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
               <h3 className="text-xl font-semibold mb-2">No products found</h3>
               <p className="text-muted-foreground">
-                Try adjusting your search terms or filters to find what you&apos;re
-              looking for.
+                Try adjusting your search terms or filters to find what
+                you&apos;re looking for.
               </p>
             </div>
             <div className="space-y-2 text-sm text-muted-foreground">

@@ -11,7 +11,6 @@ import { SmartphoneDeals } from "@/components/smartphone-deals";
 import { TopBrands } from "@/components/top-brands";
 import { HomeEntertainmentDeals } from "@/components/home-entertainment-deals";
 import { AllProductsSection } from "@/components/all-products-section";
-import { CategoryGrid } from "@/components/category-grid";
 
 export default function HomePage() {
   useEffect(() => {
@@ -32,7 +31,6 @@ export default function HomePage() {
       <TopBrands />
       <HomeEntertainmentDeals />
       <AllProductsSection />
-      <CategoryGrid />
     </MainLayout>
   );
 }

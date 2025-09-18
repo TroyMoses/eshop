@@ -25,7 +25,7 @@ export function HeroSection() {
   };
 
   return (
-    <section className="relative h-[350px] md:h-[400px] overflow-hidden bg-gradient-to-r from-muted to-card">
+    <section className="relative h-[300px] md:h-[350px] overflow-hidden bg-gradient-to-r from-muted to-card">
       <div className="absolute inset-0">
         {banners.map((banner, index) => (
           <div
